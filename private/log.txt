@@ -1,0 +1,9 @@
+broker init gitlab
+mv accept.json gitlab-accept.json
+rm .env
+broker init github-com
+mv accept.json github-com-accept.json
+rm .env
+broker init github-enterprise
+mv accept.json github-enterprise-accept.json
+rm .env
