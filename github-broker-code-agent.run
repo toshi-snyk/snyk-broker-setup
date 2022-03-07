@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# https://github.com/snyk/broker/blob/master/README.md
+# for github-com
+# # $GITHUB_COM_BROKER_TOKEN
+# # $GITHUB_COM_TOKEN
+# # $SNYK_TOKEN
+
+echo BROKER_TOKEN: $GITHUB_COM_BROKER_TOKEN
+echo GITHUB_TOKEN: $GITHUB_COM_TOKEN
+
+docker run -d --restart=always \
+           -p 8000:8000 \
+           -e BROKER_TOKEN=$GITHUB_COM_BROKER_TOKEN \
+           -e GITHUB_TOKEN=$GITHUB_COM_TOKEN \
+           -e PORT=8000 \
+           -e BROKER_CLIENT_URL=http://my.broker.client:8000 \
+           -e GIT_CLIENT_URL=http://code-agent:3000 \
+           --network mySnykBrokerNetwork \
+       snyk/broker:github-com
+
+docker run --name code-agent \
+           -p 3000:3000 \
+           -e PORT=3000 \
+           -e SNYK_TOKEN=$SNYK_TOKEN \
+           --network mySnykBrokerNetwork \
+       snyk/code-agent
