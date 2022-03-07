@@ -1,3 +1,9 @@
+# create default accept.json files for each SCMs
+
+broker --version
+> {"name":"snyk-broker","hostname":"Toshi-MBP-Snyk.local","pid":39872,"level":30,"version":"4.121.0","msg":"running in client mode","time":"2022-03-07T00:59:59.886Z","v":0}
+
+
 broker init gitlab
 mv accept.json gitlab-accept.json
 rm .env
@@ -7,3 +13,7 @@ rm .env
 broker init github-enterprise
 mv accept.json github-enterprise-accept.json
 rm .env
+
+# create github-com-code-accept.json to enable code snippets
+# per https://docs.snyk.io/features/snyk-broker/snyk-broker-code-agent#enable-code-snippets
+ 

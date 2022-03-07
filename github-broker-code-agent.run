@@ -5,9 +5,10 @@
 # # $GITHUB_COM_BROKER_TOKEN
 # # $GITHUB_COM_TOKEN
 # # $SNYK_TOKEN
+# # $BROKER_CLIENT_HOMEDIR
 
-echo BROKER_TOKEN: $GITHUB_COM_BROKER_TOKEN
-echo GITHUB_TOKEN: $GITHUB_COM_TOKEN
+#echo BROKER_TOKEN: $GITHUB_COM_BROKER_TOKEN
+#echo GITHUB_TOKEN: $GITHUB_COM_TOKEN
 
 docker run -d --restart=always \
            -p 8000:8000 \
@@ -15,6 +16,8 @@ docker run -d --restart=always \
            -e GITHUB_TOKEN=$GITHUB_COM_TOKEN \
            -e PORT=8000 \
            -e BROKER_CLIENT_URL=http://my.broker.client:8000 \
+           -e ACCEPT=/private/github-com-code-accept.json \
+           -v $BROKER_CLIENT_HOMEDIR/private:/private \
            -e GIT_CLIENT_URL=http://code-agent:3000 \
            --network mySnykBrokerNetwork \
        snyk/broker:github-com
